@@ -8,60 +8,54 @@ int CTeacher_pim::newTeacherID = 0;
 CTeacher_pim::CTeacher_pim()
 {
     teacherID = ++newTeacherID;
-    teacherName = "ivan";
+    teacherName = "Ivan";
     teacherSurname = "Ivanov";
     birthYear = 1990;
     chairName = "Mathemathics";
 }
 
+void CTeacher_pim::writeToConsole()
+{
+    cout << "\nTeacher:\n";
+    cout << "ID: " << teacherID << "\nName: " << teacherName
+        << "\nSurname: " << teacherSurname << "\nYear of Birth: " << birthYear << "\nDepartment: " << chairName << std::endl;
+}
+
+void CTeacher_pim::readFromConsole()
+{
+    cout << "Name:\n";
+    cin >> std::ws;
+    getline(cin, teacherName);
+    cout << "Surname:\n";
+    cin >> std::ws;
+    getline(cin, teacherSurname);
+    cout << "Year of Birth:\n";
+    birthYear = getInRange(1930, 2000);
+    cout << "Department:\n";
+    cin >> std::ws;
+    getline(cin, chairName);
+}
+
+void CTeacher_pim::writeToFile(std::ofstream& fout)
+{
+    fout << teacherID << std::endl << teacherName << std::endl << teacherSurname << std::endl << birthYear << std::endl << chairName;
+}
+
+void CTeacher_pim::readFromFile(std::ifstream& fin)
+{
+    fin >> ws;
+    fin >> teacherID;
+    fin.ignore(10000, '\n');
+    getline(fin, teacherName);
+    getline(fin, teacherSurname);
+    fin >> birthYear;
+    fin.ignore(10000, '\n');
+    getline(fin, chairName);
+
+    CTeacher_pim::newTeacherID = teacherID;
+}
+
 int CTeacher_pim::getTeacherID() const
 {
 	return teacherID;
-}
-
-std::istream& operator >> (std::istream& in, CTeacher_pim& t)
-{
-    std::cout << "Add teacher data: name, surname, year of Birth, chair\n";
-    std::cout << "Name:\n";
-    in >> std::ws;
-    getline(in, t.teacherName);
-    std::cout << "Surname:\n";
-    in >> std::ws;
-    getline(in, t.teacherSurname);
-    std::cout << "Year of Birth:\n";
-    t.birthYear = getInRange(1930, 2000);
-    std::cout << "Chair:\n";
-    in >> std::ws;
-    getline(in, t.chairName);
-    return in;
-}
-
-std::ostream& operator << (std::ostream& out, const CTeacher_pim& t)
-{
-    out << "\nTeacher:\n";
-    out << "ID: " << t.teacherID << "\nName: " << t.teacherName
-        << "\nSurname: " << t.teacherSurname << "\nYear of Birth: " << t.birthYear << "\nChair: " << t.chairName << std::endl;
-    return out;
-}
-
-std::ofstream& operator << (std::ofstream& out, const CTeacher_pim& t)
-{
-    out << t.teacherID << std::endl << t.teacherName << std::endl << t.teacherSurname << std::endl << t.birthYear << std::endl << t.chairName;
-    return out;
-}
-
-std::ifstream& operator >>(std::ifstream& in, CTeacher_pim& t)
-{
-    in >> ws;
-    in >> t.teacherID;
-    in.ignore(10000, '\n');
-    getline(in, t.teacherName);
-    getline(in, t.teacherSurname);
-    in >> t.birthYear;
-    in.ignore(10000, '\n');
-    getline(in, t.chairName);
-
-    CTeacher_pim::newTeacherID = t.teacherID;
-
-    return in;
 }

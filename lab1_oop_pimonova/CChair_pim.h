@@ -3,20 +3,24 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <list>
+#include <vector>
 
 #include "Utils.h"
 #include "CTeacher_pim.h"
+//#include "CHeadOfDepartment_pim.h"
+
+class CTeacher_pim;
 
 class CChair_pim
 {
-	std::list <class CTeacher_pim*> teachers;
+	std::vector <std::shared_ptr<class CTeacher_pim>> teachers;
 
 public:
 	void addTeacher();
+	void addHeadOfDepartment();
 	void seeAllTeachers();
 	void saveToFile();
 	void loadFromFile();
 	void deleteAllTeachers();
-	~CChair_pim();
+
 };

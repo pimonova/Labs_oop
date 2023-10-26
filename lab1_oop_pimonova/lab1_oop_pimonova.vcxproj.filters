@@ -27,6 +27,9 @@
     <ClCompile Include="CChair_pim.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="CHeadOfDepartment_pim.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -36,6 +39,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="CChair_pim.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="CHeadOfDepartment_pim.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

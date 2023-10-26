@@ -7,6 +7,7 @@
 
 class CTeacher_pim
 {
+protected:
 	int teacherID;
 	static int newTeacherID;
 
@@ -16,14 +17,13 @@ public:
 	int birthYear;
 	std::string chairName;
 
-	friend std::ostream& operator << (std::ostream& out, const CTeacher_pim& t);
-	friend std::istream& operator >> (std::istream& in, CTeacher_pim& t);
-	friend std::ofstream& operator << (std::ofstream& out, const CTeacher_pim& t);
-	friend std::ifstream& operator >> (std::ifstream& in, CTeacher_pim& t);
-	friend class CChair_pim;
-
 	CTeacher_pim();
 
-	int getTeacherID() const;
+	virtual void writeToConsole();
+	virtual void readFromConsole();
+	void writeToFile(std::ofstream& fout);
+	void readFromFile(std::ifstream& fin);
+
+	virtual int getTeacherID() const;
 };
 

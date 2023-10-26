@@ -1,16 +1,19 @@
 #include "CChair_pim.h"
+#include "CHeadOfDepartment_pim.h"
 
 using namespace std;
 
-CChair_pim::~CChair_pim()
-{
-    deleteAllTeachers();
-};
-
 void CChair_pim::addTeacher()
 {
-    CTeacher_pim* t = new CTeacher_pim();
-    cin >> *t;
+    shared_ptr<CTeacher_pim> t = make_shared<CTeacher_pim>(); // https://habr.com/ru/companies/piter/articles/706866/
+    t->readFromConsole();
+    teachers.push_back(t);
+}
+
+void CChair_pim::addHeadOfDepartment()
+{
+    shared_ptr<CHeadOfDepartment_pim> t = make_shared<CHeadOfDepartment_pim>();
+    t->readFromConsole();
     teachers.push_back(t);
 }
 
@@ -18,7 +21,7 @@ void CChair_pim::seeAllTeachers()
 {
 	if (teachers.size() != 0)
 	{
-		for (const auto* teacher : teachers) cout << *teacher << endl;
+		for (const auto teacher : teachers) teacher->writeToConsole();
 	}
 	else
 		cout << "\nThere are no teachers!" << endl;
@@ -39,7 +42,7 @@ void CChair_pim::saveToFile()
     {
         if (teachers.size() != 0)
         {
-            for (const auto* teacher : teachers) fout << *teacher << endl;
+            for (const auto teacher : teachers) teacher->writeToFile(fout);
         }
 
         fout.close();
@@ -62,8 +65,8 @@ void CChair_pim::loadFromFile()
     {
         while (fin.peek()!=EOF)
         {
-            CTeacher_pim* t = new CTeacher_pim();
-            fin >> *t;
+            shared_ptr<CTeacher_pim> t = make_shared<CTeacher_pim>();
+            t->readFromFile(fin);
             teachers.push_back(t);
         }
 
@@ -75,7 +78,6 @@ void CChair_pim::loadFromFile()
 
 void CChair_pim::deleteAllTeachers()
 {
-    for (auto* teacher : teachers) delete teacher;
     teachers.clear();
     CTeacher_pim::newTeacherID = 0;
     cout << "\nData deleted!";
